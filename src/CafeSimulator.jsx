@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './CafeSimulator.css';
-import DPanel from './Components/DPanel';
-import EOrder from './Components/EOrder';
-import EShop from './Components/EShop';
-import EInventory from './Components/EInventory';
-import ingredientList from './data/ingredientList';
-import menuList from './data/menuList';
+import DPanel from './Components/DPanel.jsx';
+import EOrder from './Components/EOrder.jsx';
+import EShop from './Components/EShop.jsx';
+import EInventory from './Components/EInventory.jsx';
+import ingredientList from './data/ingredientList.js';
+import menuList from './data/menuList.js';
 
 export default function CafeSimulator() {
   const [tab, setTab] = useState('order');
