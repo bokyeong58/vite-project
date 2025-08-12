@@ -95,6 +95,5 @@ setCustomer({
           쫓아내기
         </button>
       </div>
-    </div>
   );
 }

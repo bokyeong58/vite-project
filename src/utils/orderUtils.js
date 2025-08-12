@@ -1,6 +1,6 @@
 import img1 from '../assets/celeb1.jpg';
 import img2 from '../assets/celeb1.jpg';
-import img3 from '../assets/celeb3.jng';
+import img3 from '../assets/celeb3.jpg';
 
 const customerImages = [img1, img2, img3];
 

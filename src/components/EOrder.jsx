@@ -24,12 +24,11 @@ export default function EOrder({
       img: getRandomCustomerImage(),
       orders,
       isWeird
-      setOrderList([]);
-      startTimer(20);
       });
-    });
-
+      
     setOrderList([]);
+    startTimer(20);
+
     startTimer(setTimer, () => {
       // 타이머 끝났을 때 실행할 실패 로직
       setMessage('1,000원을 잃었습니다.');
