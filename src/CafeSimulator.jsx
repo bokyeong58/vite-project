@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './CafeSimulator.css';
-import DPanel from './components/DPanel';
-import EOrder from './components/EOrder';
+import DPanel from './Components/DPanel';
+import EOrder from './Components/EOrder';
 import EShop from './components/EShop';
 import EInventory from './components/EInventory';
 import ingredientList from './data/ingredientList';
