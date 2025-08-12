@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './CafeSimulator.css';
-import DPanel from './Components/DPanel.jsx';
+import DPanel from './components/DPanel.jsx';
 import EOrder from './Components/EOrder.jsx';
 import EShop from './Components/EShop.jsx';
 import EInventory from './Components/EInventory.jsx';
