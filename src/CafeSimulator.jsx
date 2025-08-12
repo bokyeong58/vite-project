@@ -145,7 +145,7 @@ export default function CafeSimulator() {
           <div className="popup-box">
             <h2>카페 시뮬레이터</h2>
             <ol>
-              <li>처음 시작하면 가진 재료가 없습니다. BUY에서 재료를 구매하세요.</li>
+              <li>처음 아아 시작하면 가진 재료가 없습니다. BUY에서 재료를 구매하세요.</li>
               <li>각 메뉴마다 사용되는 재료가 조금씩 다릅니다!</li>
               <li>POS에서 주문받기로 손님을 받아보세요.</li>
               <li>이상한 손님이 오면 쫓아내세요.</li>
