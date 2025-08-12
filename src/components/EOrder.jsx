@@ -1,5 +1,58 @@
 import React from 'react';
 import './EOrder.css';
+import { getRandomCustomerImage, getRandomNormalOrder } from '../utils/orderUtils';
+import weirdOrders from '../data/weirdOrders';
+import menuList from '../data/menuList';
+import { startTimer } from '../utils/timerUtils';
+
+export default function EOrder({ 
+  customer, setCustomer,
+  orderList, setOrderList,
+  setMessage, setGameOver,
+  setTimer // 부모에서 전달
+}) {
+
+  const handleReceiveOrder = () => {
+    if (customer) return;
+
+    const isWeird = Math.random() < 0.2;
+    const orders = isWeird
+      ? weirdOrders[Math.floor(Math.random() * weirdOrders.length)]
+      : getRandomNormalOrder(menuList);
+
+    setCustomer({
+      img: getRandomCustomerImage(),
+      orders,
+      isWeird
+      setOrderList([]);
+      startTimer(20);
+      });
+    });
+
+    setOrderList([]);
+    startTimer(setTimer, () => {
+      // 타이머 끝났을 때 실행할 실패 로직
+      setMessage('1,000원을 잃었습니다.');
+      setMoney(m => {
+        const next = m - 1000;
+        if (next <= 0) setGameOver(true);
+        return next;
+      });
+      setCustomer(null);
+      setOrderList([]);
+    });
+  };
+
+  return (
+    <div>
+      {/* 주문 내역 O */}
+      {/* 주문받기 버튼 옮김 */}
+      <button onClick={handleReceiveOrder}>주문받기</button>
+      {/* 결제 버튼 */}
+    </div>
+  );
+}
+
 
 export default function EOrder({
   menuList, inventory,
@@ -83,6 +136,9 @@ export default function EOrder({
       const finalPrice = totalPrice + 500;
       setMoney(m => m + finalPrice);
       setMessage(`주문 성공! ${totalPrice.toLocaleString()}원이 지급되었습니다. (손님 팁 +500원)`);
+      // ✅ 여기서 호출
+      onOrderSuccess();
+      return;
     } else {
       setMessage('1,000원을 잃었습니다.');
       setMoney(m => m - 1000);
@@ -120,7 +176,10 @@ export default function EOrder({
           </div>
         )}
       </div>
-      <button onClick={handlePayment}>Q: 결제하기</button>
+      <div className="order-actions">
+      <button onClick={handleReceiveOrder}>주문받기</button>
+      <button onClick={handlePayment}>결제하기</button>
+      </div>
     </div>
   );
 }

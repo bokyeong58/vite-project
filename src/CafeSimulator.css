@@ -1,15 +1,25 @@
 .cafe-layout {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   height: 100%;
 }
 .top-tabs {
   display: flex;
+  justify-content: center;
   gap: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+}
+.dpanel {
+  width: 300px; /* 적절한 크기 */
+  border-right: 1px solid #ccc;
+  padding: 10px;
+  box-sizing: border-box;
 }
 .e-container {
   flex: 1;
+  padding: 10px;
+  box-sizing: border-box;
+  overflow-y: auto;
 }
 .t-message {
   position: fixed;

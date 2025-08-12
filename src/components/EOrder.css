@@ -46,3 +46,15 @@
 .total-sum {
   min-width: 140px;
 }
+
+.order-actions {
+  display: flex;       /* P, Q 버튼 가로 배치 */
+  gap: 20px;           /* 버튼 사이 간격 */
+  margin-top: 20px;    /* 주문내역(O)와 버튼 사이 간격 */
+}
+.order-actions button {
+  flex: 1;             /* 버튼 크기 동일하게 */
+  padding: 10px;
+  font-size: 14px;
+  cursor: pointer;
+}

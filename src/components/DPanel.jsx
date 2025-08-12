@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './DPanel.css';
-import weirdOrders from './weirdOrders';
-import menuList from './menuList';
+import weirdOrders from '../data/weirdOrders';
+import menuList from '../data/menuList';
 import { getRandomCustomerImage, getRandomNormalOrder } from '../utils/orderUtils';
+import { startTimer } from '../utils/timerUtils';
 
 export default function DPanel({
+  tab,
   money, setMoney,
   inventory, setInventory,
   customer, setCustomer,
@@ -14,21 +16,14 @@ export default function DPanel({
   const [timer, setTimer] = useState(null);
   const intervalRef = useRef(null);
 
-  // 주문받기
-  const handleReceiveOrder = () => {
-    if (customer) return; // 손님이 없을 때만
-    const isWeird = Math.random() < 0.2; // 20% 이상주문 확률
-    const orders = isWeird
-      ? weirdOrders[Math.floor(Math.random() * weirdOrders.length)]
-      : getRandomNormalOrder(menuList);
-    setCustomer({
-      img: getRandomCustomerImage(),
-      orders,
-      isWeird
-    });
-    setOrderList([]);
-    startTimer(20);
-  };
+// 주문받기 시
+const newCustomerImg = getRandomCustomerImage();
+setCustomer({
+  img: newCustomerImg,
+  orders,
+  isWeird,
+});
+
 
   const handleChaseAway = () => {
     if (!customer) return;
@@ -38,6 +33,10 @@ export default function DPanel({
       failOrder();
     }
   };
+
+  const handleOrderSuccess = () => {
+  clearAll(); // 손님 정보, 타이머 모두 리셋
+};
 
   const failOrder = () => {
     setMoney(m => {
@@ -87,14 +86,13 @@ export default function DPanel({
             : customer?.orders}
         </div>
       </div>
-      <div className="buttons">
-        <button onClick={handleReceiveOrder}>P: 주문받기</button>
+
         <button
           onClick={handleChaseAway}
           disabled={!customer}
           className={customer ? 'btn-j-active' : 'btn-j-disabled'}
         >
-          J: 쫓아내기
+          쫓아내기
         </button>
       </div>
     </div>

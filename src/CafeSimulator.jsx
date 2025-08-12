@@ -4,9 +4,9 @@ import DPanel from './components/DPanel';
 import EOrder from './components/EOrder';
 import EShop from './components/EShop';
 import EInventory from './components/EInventory';
-import menuList from './components/menuList';
-import ingredientList from './components/ingredientList';
-import weirdOrders from './components/weirdOrders';
+import menuList from './data/menuList';
+import ingredientList from './data/ingredientList';
+import weirdOrders from './data/weirdOrders';
 
 export default function CafeSimulator() {
   const [tab, setTab] = useState('order'); // order | shop | inventory
@@ -26,12 +26,13 @@ export default function CafeSimulator() {
   return (
     <div className="cafe-layout">
       <div className="top-tabs">
-        <button onClick={() => switchTab('order')}>A</button>
-        <button onClick={() => switchTab('shop')}>B</button>
-        <button onClick={() => switchTab('inventory')}>C</button>
+        <button onClick={() => switchTab('order')}>POS</button>
+        <button onClick={() => switchTab('shop')}>BUY</button>
+        <button onClick={() => switchTab('inventory')}>INVENTORY</button>
       </div>
 
       <DPanel
+        tab={tab}
         money={money}
         setMoney={setMoney}
         inventory={inventory}
@@ -47,14 +48,17 @@ export default function CafeSimulator() {
       <div className="e-container">
         {tab === 'order' && (
           <EOrder
-            menuList={menuList}
-            inventory={inventory}
-            orderList={orderList}
-            setOrderList={setOrderList}
-            customer={customer}
-            setMessage={setMessage}
-            setMoney={setMoney}
-          />
+          customer={customer}
+          setCustomer={setCustomer}
+          orderList={orderList}
+          setOrderList={setOrderList}
+          setMessage={setMessage}
+          setGameOver={setGameOver}
+          setTimer={setTimer}
+          money={money}
+          setMoney={setMoney}
+          onOrderSuccess={handleOrderSuccess}
+        />
         )}
         {tab === 'shop' && (
           <EShop

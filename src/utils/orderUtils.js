@@ -1,11 +1,15 @@
+import img1 from '../assets/celeb1.jpg';
+import img2 from '../assets/celeb1.jpg';
+import img3 from '../assets/celeb3.jng';
+
+const customerImages = [img1, img2, img3];
+
 export function getRandomCustomerImage() {
-  const imgs = [
-    '/img/customer1.png',
-    '/img/customer2.png',
-    '/img/customer3.png'
-  ];
-  return imgs[Math.floor(Math.random() * imgs.length)];
+  const randomIndex = Math.floor(Math.random() * customerImages.length);
+  return customerImages[randomIndex];
 }
+
+
 
 export function getRandomNormalOrder(menuList) {
   const count = 1 + Math.floor(Math.random() * 3); // 1~3종류
