@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './CafeSimulator.css';
 import DPanel from './components/DPanel.jsx';
-import EOrder from './Components/EOrder.jsx';
-import EShop from './Components/EShop.jsx';
-import EInventory from './Components/EInventory.jsx';
+import EOrder from './components/EOrder.jsx';
+import EShop from './components/EShop.jsx';
+import EInventory from './components/EInventory.jsx';
 import ingredientList from './data/ingredientList.js';
 import menuList from './data/menuList.js';
 
