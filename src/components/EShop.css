@@ -1,0 +1,26 @@
+.eshop {
+  padding: 5px;
+}
+.ingredient-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.ingredient-card {
+  border: 1px solid #ccc;
+  padding: 6px;
+  cursor: pointer;
+  width: 120px;
+}
+.cart-list {
+  margin-top: 8px;
+}
+.cart-item {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+.cart-total {
+  font-weight: bold;
+  margin-top: 4px;
+}
