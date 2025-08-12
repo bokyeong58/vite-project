@@ -1,41 +1,249 @@
+
+.dpanel {
+  padding: 15px;
+  border-top: 2px solid #b59362;
+  background-color: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 190px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  z-index:1500;
+}
+
+.money {
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.timer {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.customer-area {
+  text-align: center;
+}
+
+.customer-img {
+  border-radius: 8px;
+  box-shadow: 0 0 8px #d5c7a0;
+}
+
+.orders {
+  margin-top: 6px;
+  font-weight: 600;
+  max-height: 50px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
 .cafe-layout {
   display: flex;
-  flex-direction: row;
-  height: 100%;
+  flex-direction: column;
+  height: 100vh;
+  background: #fafafa;
 }
-.top-tabs {
+
+/* E영역 최상단 탭 */
+.top-tabs-e {
   display: flex;
   justify-content: center;
-  gap: 10px;
-  margin-bottom: 15px;
+  background-color: #e5e3e3;
+  padding: 10px 0;
+  gap: 20px;
+  border-bottom: 2px solid #ccc;
 }
-.dpanel {
-  width: 300px; /* 적절한 크기 */
-  border-right: 1px solid #ccc;
-  padding: 10px;
-  box-sizing: border-box;
+
+/* 쫓아내기 버튼 */
+.btn-j-active {
+  background-color: #b59362;
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  font-size: 1.1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  max-width: 240px;
+  box-shadow: 1px 1px 4px #999;
+  transition: 0.25s ease all;
 }
+.btn-j-active:hover {
+  background-color: #a67c00;
+}
+.btn-j-disabled {
+  background-color: #ccc;
+  color: #666;
+  border: none;
+  padding: 12px 28px;
+  font-size: 1.1rem;
+  border-radius: 4px;
+  cursor: not-allowed;
+  width: 100%;
+  max-width: 240px;
+}
+
+.top-tabs-e button {
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 8px 15px;
+  transition: background-color 0.3s ease;
+}
+
+.top-tabs-e button.active,
+.top-tabs-e button:hover {
+  background-color: #b59362;
+  color: #fff;
+  border-radius: 4px;
+}
+
+/* E영역 분류 탭 (POS, BUY의 하위 탭) */
+.sub-tabs-e {
+  display: flex;
+  justify-content: center;
+  background-color: #f1f1f1;
+  padding: 6px 0;
+  gap: 15px;
+  border-bottom: 1px solid #ccc;
+}
+
+.sub-tabs-e button {
+  padding: 6px 15px;
+  border: none;
+  border-radius: 20px;
+  background-color: #ddd;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.sub-tabs-e button.sub-active,
+.sub-tabs-e button:hover {
+  background-color: #a67c00;
+  color: white;
+}
+
+/* e-container: E 영역 콘텐츠 */
 .e-container {
-  flex: 1;
-  padding: 10px;
-  box-sizing: border-box;
+  flex-grow: 1;
   overflow-y: auto;
+  padding: 10px 20px;
+  background: #fff;
 }
-.t-message {
+
+/* 경고 메시지 박스 */
+.warning-box {
   position: fixed;
-  top: 10px;
+  top: 60px;
   left: 50%;
   transform: translateX(-50%);
-  background: #eee;
-  padding: 8px 12px;
-  border-radius: 6px;
+  background: #ff6961;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 700;
+  z-index: 1000;
 }
+
+/* 게임 시작 팝업 */
+.game-start-popup,
 .gameover-popup {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: white;
-  border: 2px solid black;
-  padding: 20px;
+  top:0; bottom:0; left:0; right:0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items:center;
+  z-index: 2000;
 }
+
+.game-start-popup h2,
+.gameover-popup h2 {
+  background: white;
+  padding: 20px 30px;
+  border-radius: 8px 8px 0 0;
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.game-start-popup ol,
+.game-start-popup button,
+.gameover-popup button {
+  background: white;
+  padding: 20px 30px;
+  border-radius: 0 0 8px 8px;
+  margin: 0;
+  width: 320px;
+  max-width: 90vw;
+  text-align: center;
+}
+
+.game-start-popup ol {
+  margin-bottom: 15px;
+  text-align: left;
+  line-height: 1.5;
+  padding-left: 20px;
+}
+
+/* 상단 버튼 영역 POS, BUY, INVENTORY */
+.top-tabs-e,
+.sub-tabs-e {
+  user-select:none;
+}
+
+.popup-overlay {
+  position: fixed;
+  top:0; left:0; right:0; bottom:0;
+  background: rgba(0,0,0,0.55);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:2000;
+}
+
+.popup-box {
+  background:#fff;
+  border-radius:10px;
+  padding:20px 30px;
+  width: 480px; /* 기존 대비 1.5배 */
+  max-width: 90%;
+  box-shadow:0 4px 12px rgba(0,0,0,0.3);
+  text-align:center;
+}
+
+.popup-box h2 {
+  margin-bottom:15px;
+}
+
+.popup-box ol {
+  text-align:left;
+  padding-left:20px;
+  margin-bottom: 20px;
+}
+
+.popup-btn {
+  padding:10px 20px;
+  background:#b59362;
+  color:white;
+  border:none;
+  border-radius:10px; /* 네 모서리 라운드 처리 */
+  cursor:pointer;
+  font-size:1.05rem;
+}
+
+.popup-btn:hover {
+  background:#a67c00;
+}
+
+
+/* 버튼 호버 및 애니메이션 등 추가 필요 시 여기에 */

@@ -1,79 +1,83 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './EShop.css';
 
 export default function EShop({
   ingredientList,
-  inventory, setInventory,
-  money, setMoney,
-  setMessage
+  inventory,
+  setInventory,
+  money,
+  setMoney,
+  setMessage,
+  buyList,
+  setBuyList
 }) {
-  const [cart, setCart] = useState([]);
-
-  const handleAdd = (item) => {
-    setCart(prev => {
+  const handleSelectIngredient = (item) => {
+    setBuyList(prev => {
       const found = prev.find(i => i.name === item.name);
-      if (found) {
-        return prev.map(i => i.name === item.name ? { ...i, qty: i.qty + 1 } : i);
-      }
+      if (found) return prev;
       return [...prev, { ...item, qty: 1 }];
     });
   };
 
   const changeQty = (name, delta) => {
-    setCart(prev => prev.map(i => {
-      if (i.name !== name) return i;
-      const newQty = i.qty + delta;
-      if (newQty <= 0) return null;
-      return { ...i, qty: newQty };
+    setBuyList(prev => prev.map(item => {
+      if (item.name !== name) return item;
+      const nextQty = item.qty + delta;
+      if (nextQty <= 0) return null;
+      return { ...item, qty: nextQty };
     }).filter(Boolean));
   };
 
-  const totalPrice = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
-
   const handlePurchase = () => {
-    if (totalPrice > money) return;
-    const newInv = { ...inventory };
-    cart.forEach(i => {
-      newInv[i.name] = (newInv[i.name] || 0) + i.qty;
+    const totalPrice = buyList.reduce((sum, i) => sum + i.price * i.qty, 0);
+    if (money < totalPrice) {
+      setMessage('돈이 부족합니다.');
+      return;
+    }
+    setMoney(money - totalPrice);
+    setInventory(prev => {
+      const updated = { ...prev };
+      buyList.forEach(item => {
+        updated[item.name] = (updated[item.name] || 0) + item.qty;
+      });
+      return updated;
     });
-    setInventory(newInv);
-    setMoney(m => m - totalPrice);
-    setMessage(`재료 구매 완료! -${totalPrice.toLocaleString()}원 소비했습니다.`);
-    setCart([]);
+    setBuyList([]);
   };
+
+  const totalQty = buyList.reduce((sum, i) => sum + i.qty, 0);
+  const totalPrice = buyList.reduce((sum, i) => sum + i.price * i.qty, 0);
 
   return (
     <div className="eshop">
       <div className="ingredient-list">
         {ingredientList.map((item, idx) => (
-          <div key={idx} className="ingredient-card" onClick={() => handleAdd(item)}>
+          <div key={idx} className="ingredient-card" onClick={() => handleSelectIngredient(item)}>
+            {item.img && <img src={item.img} alt={item.name} className="ingredient-img" />}
             <div>{item.name}</div>
-            <div>{item.price.toLocaleString()}원</div>
+            <div>{item.price}원</div>
           </div>
         ))}
       </div>
-      <div className="cart-list">
-        {cart.map((i, idx) => (
-          <div key={idx} className="cart-item">
-            <button onClick={() => changeQty(i.name, -1)}>-</button>
-            {i.name} ({i.price.toLocaleString()}원)
-            <button onClick={() => changeQty(i.name, 1)}>+</button>
-            <span>수량: {i.qty}</span>
-            <span>합계: {(i.price * i.qty).toLocaleString()}원</span>
+
+      <div className="order-list">
+        {buyList.map((m, idx) => (
+          <div className="order-item" key={idx}>
+            <button onClick={() => changeQty(m.name, -1)}>-</button>
+            {m.name} (단가:{m.price.toLocaleString()}원)
+            <button onClick={() => changeQty(m.name, 1)}>+</button>
+            <span className="qty">수량:{m.qty}</span>
+            <span className="sum">총금액:{(m.price * m.qty).toLocaleString()}원</span>
           </div>
         ))}
-        {cart.length > 0 && (
-          <div className="cart-total">
-            총금액: {totalPrice.toLocaleString()}원
+        {buyList.length > 0 && (
+          <div className="order-total">
+            <span>총 수량: {totalQty}개</span>
+            <span>총금액: {totalPrice.toLocaleString()}원</span>
+            <button onClick={handlePurchase}>구매하기</button>
           </div>
         )}
       </div>
-      <button
-        onClick={handlePurchase}
-        disabled={totalPrice === 0 || totalPrice > money}
-      >
-        R: 구매하기
-      </button>
     </div>
   );
 }

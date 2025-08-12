@@ -2,24 +2,21 @@ import img1 from '../assets/celeb1.jpg';
 import img2 from '../assets/celeb1.jpg';
 import img3 from '../assets/celeb3.jpg';
 
-const customerImages = [img1, img2, img3];
+// 손님 이미지 경로 (예: src/assets폴더에 복사해두세요)
+const customerImages = [
+  '/assets/celeb1.jpg',
+  '/assets/celeb2.jpg',
+  '/assets/celeb3.jpg'
+];
 
 export function getRandomCustomerImage() {
-  const randomIndex = Math.floor(Math.random() * customerImages.length);
-  return customerImages[randomIndex];
+  return customerImages[Math.floor(Math.random() * customerImages.length)];
 }
 
-
-
+// getRandomNormalOrder 함수 예시 (기존 구현 참고)
 export function getRandomNormalOrder(menuList) {
-  const count = 1 + Math.floor(Math.random() * 3); // 1~3종류
-  const orders = [];
-  const menuCopy = [...menuList];
-  for (let i = 0; i < count; i++) {
-    const idx = Math.floor(Math.random() * menuCopy.length);
-    const menu = menuCopy.splice(idx, 1)[0];
-    const qty = 1 + Math.floor(Math.random() * 3);
-    orders.push({ name: menu.name, qty });
-  }
-  return orders;
+  // 랜덤으로 1~3개 메뉴를 손님 주문으로 생성 (예)
+  const count = Math.floor(Math.random() * 3) + 1;
+  const shuffled = [...menuList].sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, count).map(m => ({ name: m.name, qty: 1 }));
 }

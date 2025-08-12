@@ -2,7 +2,6 @@ import React from 'react';
 import './DPanel.css';
 
 export default function DPanel({
-  tab,
   money,
   customer,
   orderList,
@@ -16,6 +15,7 @@ export default function DPanel({
   const clearAll = () => {
     setCustomer(null);
     setOrderList([]);
+    setTimer(null); // 🟢 쫓아내거나 실패 시 타이머도 함께 초기화
   };
 
   const failOrder = () => {
@@ -33,11 +33,8 @@ export default function DPanel({
 
   const handleChaseAway = () => {
     if (!customer) return;
-    if (customer.isWeird) {
-      clearAll();
-    } else {
-      failOrder();
-    }
+    if (customer.isWeird) clearAll();
+    else failOrder();
   };
 
   return (
@@ -47,14 +44,19 @@ export default function DPanel({
 
       <div className="customer-area">
         {customer?.img && (
-          <img src={customer.img} alt="손님" className="customer-img" />
+          <img
+            src={customer.img}
+            alt="손님"
+            className="customer-img"
+            style={{ width: '150px', height: '150px' }}
+          />
         )}
         <div className="orders">
           {Array.isArray(customer?.orders)
             ? customer.orders.map((o, idx) => (
                 <div key={idx}>{o.name} {o.qty}개</div>
               ))
-            : customer?.orders}
+            : <div>{customer?.orders}</div>}
         </div>
       </div>
 

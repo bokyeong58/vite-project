@@ -1,26 +1,113 @@
 .eshop {
-  padding: 5px;
+  padding: 10px;
 }
+
+.sub-tabs-e {
+  display: flex;
+  justify-content: center;
+  background-color: #f1f1f1;
+  padding: 6px 0;
+  gap: 15px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.sub-tabs-e button {
+  padding: 6px 15px;
+  border: none;
+  border-radius: 20px;
+  background-color: #ddd;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s;
+  user-select:none;
+}
+
+.sub-tabs-e button.sub-active,
+.sub-tabs-e button:hover {
+  background-color: #a67c00;
+  color: white;
+}
+
 .ingredient-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 12px;
+  justify-content: center;
 }
+
 .ingredient-card {
-  border: 1px solid #ccc;
-  padding: 6px;
-  cursor: pointer;
-  width: 120px;
+  width: 140px;
+  border: 1.5px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  background: #fff;
+  box-shadow: 1px 1px 3px #aaa;
 }
-.cart-list {
+
+.ingredient-img {
+  width: 100%;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 6px;
+}
+
+.ingredient-info {
+  margin-bottom: 8px;
+}
+
+.ingredient-name {
+  font-weight: 700;
+}
+
+.ingredient-price,
+.ingredient-stock {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.order-list {
   margin-top: 8px;
 }
-.cart-item {
+.order-item {
+  padding: 6px 0;
+  border-bottom: 1px solid #eee;
   display: flex;
-  gap: 4px;
   align-items: center;
+  gap: 8px;
 }
-.cart-total {
-  font-weight: bold;
-  margin-top: 4px;
+.order-item button {
+  cursor: pointer;
+  padding: 2px 10px;
+  font-weight: 700;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: 1px solid #bbb;
+  background: #fafafa;
+}
+.order-item button:hover {
+  background: #b59362;
+  color: white;
+}
+.order-total {
+  margin-top: 8px;
+  font-weight: 700;
+  text-align: left;
+  display:flex;
+  flex-direction: column;
+  gap:4px;
+}
+.order-total button {
+  margin-top: 6px;
+  padding: 8px 16px;
+  background-color: #b59362;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor:pointer;
+}
+.order-total button:hover {
+  background-color: #a67c00;
 }

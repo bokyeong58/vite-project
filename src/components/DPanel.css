@@ -1,33 +1,81 @@
 .dpanel {
-  border: 1px solid #ccc;
-  padding: 8px;
-  margin-bottom: 10px;
+  padding: 15px;
+  border-top: 2px solid #b59362;
+  background-color: #fff;
+  position: relative;
+  height: 190px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 }
-.money, .timer {
-  font-weight: bold;
+
+.money {
+  font-weight: 600;
+  margin-bottom: 6px;
+  font-size: 1.2rem;
 }
+
+.timer {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
 .customer-area {
-  display: flex;
-  gap: 10px;
-  align-items: flex-start;
-  margin-top: 5px;
+  text-align: center;
 }
+
 .customer-img {
-  width: 60px;
-  height: 60px;
+  border-radius: 8px;
+  box-shadow: 0 0 8px #d5c7a0;
 }
+
 .orders {
-  font-size: 14px;
+  margin-top: 6px;
+  font-weight: 600;
+  max-height: 50px;
+  overflow-y: auto;
+  scrollbar-width: thin;
 }
-.buttons {
-  display: flex;
-  gap: 6px;
-}
+
+/* 쫓아내기 버튼 스타일 */
 .btn-j-active {
-  background: red;
+  background-color: #b59362;
   color: white;
+  border: none;
+  padding: 12px 28px;
+  font-size: 1.1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  max-width: 240px;
+  box-shadow: 1px 1px 4px #999;
+  transition: 0.25s ease all;
 }
+
+.btn-j-active:hover {
+  background-color: #a67c00;
+}
+
 .btn-j-disabled {
-  background: gray;
-  color: #eee;
+  background-color: #ccc;
+  color: #666;
+  border: none;
+  padding: 12px 28px;
+  font-size: 1.1rem;
+  border-radius: 4px;
+  cursor: not-allowed;
+  width: 100%;
+  max-width: 240px;
+}
+
+/* 하단 고정 */
+.dpanel {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1500;
+  background: #faf5e2;
 }
