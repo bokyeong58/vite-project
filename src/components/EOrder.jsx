@@ -2,7 +2,8 @@ import React from 'react';
 import './EOrder.css';
 import { getRandomCustomerImage, getRandomNormalOrder } from '../utils/orderUtils';
 import weirdOrders from '../data/weirdOrders';
-import { startTimer } from '../utils/timerUtils';
+import { startTimer, stopTimer } from '../utils/timerUtils';
+import menuList from '../data/menuList.js';
 
 export default function EOrder({
   customer, setCustomer,
@@ -10,17 +11,21 @@ export default function EOrder({
   setMessage, setGameOver,
   setTimer,
   inventory,
+  setInventory,
   setMoney,
   onOrderSuccess,
   filteredMenu
 }) {
+  const allMenus = menuList;
+
   const handleReceiveOrder = () => {
     if (customer) return;
+    stopTimer(setTimer);
 
     const isWeird = Math.random() < 0.2;
     const orders = isWeird
       ? weirdOrders[Math.floor(Math.random() * weirdOrders.length)] // 문자열
-      : getRandomNormalOrder(filteredMenu);
+      : getRandomNormalOrder(allMenus);
 
     setCustomer({
       img: getRandomCustomerImage(),
@@ -71,7 +76,14 @@ export default function EOrder({
   const totalPrice = orderList.reduce((sum, i) => sum + i.price * i.qty, 0);
 
   const handlePayment = () => {
-    if (!customer) return;
+    console.log('결제하기 클릭됨');
+    console.log('customer:', customer);
+    console.log('orderList:', orderList);
+
+    if (!customer) {
+      console.log('customer 없음 > 리턴');
+      return;
+    }
 
     if (customer.isWeird) { // 이상 주문
       setMessage('1,000원을 잃었습니다.');
@@ -83,15 +95,33 @@ export default function EOrder({
         }
         return next;
       });
-      setTimer(null);
+
+      setInventory(prev => {
+        const updated = { ...prev };
+        orderList.forEach(menu => {
+          Object.entries(menu.ingredients).forEach(([ing, qty]) => {
+            updated[ing] = (updated[ing] || 0) - qty * menu.qty;
+            if (updated[ing] < 0) updated[ing] = 0;
+          });
+        });
+        return updated;
+      });
+
+      setCustomer(null);
+      setOrderList([]);
+      stopTimer(setTimer);
       return;
     }
 
-    const match = customer.orders.length === orderList.length &&
+    const match =
+    customer.orders.length === orderList.length &&
       customer.orders.every(co => {
         const matchItem = orderList.find(o => o.name === co.name);
-        return matchItem && matchItem.qty === co.qty;
+        console.log(`비교: ${co.name}`, matchItem);
+        return matchItem && Number(matchItem.qty) === Number(co.qty);
       });
+
+      console.log('match 결과:', match);
 
     if (match) {
       const finalPrice = totalPrice + 500;
@@ -108,7 +138,7 @@ export default function EOrder({
       setMoney(m => m + finalPrice);
       setMessage(`주문 성공! ${totalPrice.toLocaleString()}원 + 팁 500원`);
       onOrderSuccess();
-      setTimer(null);
+      stopTimer(setTimer);
     } else {
       setMessage('1,000원을 잃었습니다.');
       setMoney(m => {
@@ -121,11 +151,11 @@ export default function EOrder({
       });
       setCustomer(null);
       setOrderList([]);
-      setTimer(null);
+      stopTimer(setTimer);
     }
   };
   const shortageMenus =
-  customer && !customer.isWeird
+  customer
     ? filteredMenu
         .filter(menu => {
           return Object.entries(menu.ingredients).some(([ing, qty]) => {

@@ -7,7 +7,7 @@ let currentTimerId = null;
  * @param {Function} onExpire - 타이머 종료 시 실행할 콜백
  * @param {number} duration - 시작 시간(초), 기본값 20초
  */
-export function startTimer(setTimer, onExpire, duration = 20) {
+export function startTimer(setTimer, onExpire, duration = 50) {
   // 기존 타이머가 있다면 먼저 중지
   if (currentTimerId) {
     clearInterval(currentTimerId);
@@ -37,9 +37,12 @@ export function startTimer(setTimer, onExpire, duration = 20) {
 /**
  * 현재 동작 중인 타이머 중지
  */
-export function stopTimer() {
+export function stopTimer(setTimer) {
   if (currentTimerId) {
     clearInterval(currentTimerId);
     currentTimerId = null;
+  }
+  if (typeof setTimer === 'function') {
+    setTimer(null);
   }
 }

@@ -101,6 +101,7 @@ export default function CafeSimulator() {
         setMessage={setMessage}
         setGameOver={setGameOver}
         timer={timer}
+        setTimer={setTimer}
       />
 
       <div className="e-container">
@@ -114,6 +115,7 @@ export default function CafeSimulator() {
             setGameOver={setGameOver}
             setTimer={setTimer}
             inventory={inventory}
+            setInventory={setInventory}
             setMoney={setMoney}
             onOrderSuccess={handleOrderSuccess}
             filteredMenu={filteredMenus}

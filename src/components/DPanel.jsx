@@ -1,5 +1,6 @@
 import React from 'react';
 import './DPanel.css';
+import { stopTimer } from '../utils/timerUtils';
 
 export default function DPanel({
   money,
@@ -10,7 +11,8 @@ export default function DPanel({
   setOrderList,
   setMessage,
   setGameOver,
-  timer
+  timer,
+  setTimer
 }) {
   const clearAll = () => {
     setCustomer(null);
@@ -32,41 +34,50 @@ export default function DPanel({
   };
 
   const handleChaseAway = () => {
-    if (!customer) return;
+    console.log('쫓아내기 함수 실행됨!', customer);
+    if (!customer) {
+      console.log('customer 없음 > 조기 return');
+      return;
+    }
+    stopTimer(setTimer);
     if (customer.isWeird) clearAll();
     else failOrder();
   };
 
   return (
-    <div className="dpanel">
+  <div className="dpanel">
+    <div className="customer-order-wrapper">
+      <div className="top-info">
       <div className="money">💰 소지금: {money.toLocaleString()}원</div>
       <div className="timer">⏳ {timer !== null ? timer : '--'}</div>
-
-      <div className="customer-area">
-        {customer?.img && (
-          <img
-            src={customer.img}
-            alt="손님"
-            className="customer-img"
-            style={{ width: '150px', height: '150px' }}
-          />
-        )}
-        <div className="orders">
-          {Array.isArray(customer?.orders)
-            ? customer.orders.map((o, idx) => (
-                <div key={idx}>{o.name} {o.qty}개</div>
-              ))
-            : <div>{customer?.orders}</div>}
-        </div>
       </div>
 
-      <button
-        onClick={handleChaseAway}
-        disabled={!customer}
-        className={customer ? 'btn-j-active' : 'btn-j-disabled'}
-      >
-        쫓아내기
-      </button>
-    </div>
+          <div className="customer-area">
+            {customer?.img && (
+              <img
+                src={customer.img}
+                alt="손님"
+                className="customer-img"
+                style={{ width: '150px', height: '150px' }}
+              />
+            )}
+            <div className="orders">
+              {Array.isArray(customer?.orders)
+                ? customer.orders.map((o, idx) => (
+                    <div key={idx}>{o.name} {o.qty}개</div>
+                  ))
+                : <div>{customer?.orders}</div>}
+            </div>
+          </div>
+
+          <div className="bottom-buttons">
+          <button
+            onClick={handleChaseAway}
+            disabled={!customer}
+            className={customer ? 'btn-j-active' : 'btn-j-disabled'}>쫓아내기
+          </button>
+          </div>
+        </div>
+      </div>
   );
 }

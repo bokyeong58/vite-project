@@ -1,13 +1,9 @@
 import img1 from '../assets/celeb1.jpg';
-import img2 from '../assets/celeb1.jpg';
+import img2 from '../assets/celeb2.jpg';
 import img3 from '../assets/celeb3.jpg';
 
 // 손님 이미지 경로 (예: src/assets폴더에 복사해두세요)
-const customerImages = [
-  '/assets/celeb1.jpg',
-  '/assets/celeb2.jpg',
-  '/assets/celeb3.jpg'
-];
+const customerImages = [img1, img2, img3];
 
 export function getRandomCustomerImage() {
   return customerImages[Math.floor(Math.random() * customerImages.length)];
