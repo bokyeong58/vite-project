@@ -151,7 +151,7 @@ export default function CafeSimulator() {
               <li>각 메뉴마다 사용되는 재료가 조금씩 다릅니다!</li>
               <li>POS에서 주문받기로 손님을 받아보세요.</li>
               <li>이상한 손님이 오면 쫓아내세요.</li>
-              <li>20초 내에 메뉴를 제공하지 않으면 1,000원을 잃어요ㅠㅠ</li>
+              <li>50초 내에 메뉴를 제공하지 않으면 1,000원을 잃어요ㅠㅠ</li>
             </ol>
             <button className="popup-btn" onClick={() => setShowGameStartPopup(false)}>게임 시작하기</button>
           </div>
